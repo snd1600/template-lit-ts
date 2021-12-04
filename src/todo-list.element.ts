@@ -6,10 +6,10 @@ type TodoItem = { text: string; checked: boolean };
 @customElement('todo-list')
 export class TodoListElement extends LitElement {
   @property({ type: String })
-  title = '';
+  declare title: string;
 
   @property({ type: Array })
-  items: TodoItem[] = [];
+  declare items: TodoItem[];
 
   protected createRenderRoot(): ShadowRoot | Element {
     return this;
@@ -25,7 +25,7 @@ export class TodoListElement extends LitElement {
       >
         ${this._inputTemplate()}
         <ul>
-          ${this.items.map((item) => this._itemTemplate(item))}
+          ${this.items?.map((item) => this._itemTemplate(item))}
         </ul>
         <div class="bg-primary-500 h-12px"></div>
       </div>
@@ -39,7 +39,9 @@ export class TodoListElement extends LitElement {
           flex flex-col items-center
         "
       >
-        <div class="text-light-500 text-3xl font-semibold">${this.title}</div>
+        <div class="text-light-500 text-3xl font-semibold">
+          ${this.title ?? ''}
+        </div>
         <div class="h-12px"></div>
         <div
           class="
